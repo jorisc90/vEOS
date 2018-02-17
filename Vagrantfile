@@ -15,9 +15,9 @@ Vagrant.configure("2") do |config|
   # +-------------+           +-------------+
   # |             |  e1   e1  |             |
   # |   spine01   -------------   spine02   |
-  # |             |           |             |
+  # |             |  e2   e2  |             |
   # +------|------\           +------|------+
-  #     e2 |       \ e3   e3 /       | e2
+  #     e3 |       \ e4   e4 /       | e3
   #        |        \       /        |
   #        |         \     /         |
   #        |          \   /          |
@@ -27,9 +27,9 @@ Vagrant.configure("2") do |config|
   #        |          /   \          |
   #        |         /     \         |
   #        |        /       \        |
-  #     e2 |       / e3   e3 \       | e2
+  #     e3 |       / e4   e4 \       | e3
   # +------|------+           -------|------+
-  # |             |           |             |
+  # |             |  e2   e2  |             |
   # |   leaf01    -------------   leaf02    |
   # |             |  e1   e1  |             |
   # +-------------+           +-------------+
@@ -41,7 +41,10 @@ Vagrant.configure("2") do |config|
   config.vm.define "spine01" do |sw|
     sw.vm.box = default_box
     sw.vm.network 'private_network',
-                      virtualbox__intnet: 's01s02',
+                      virtualbox__intnet: 's01s02_1',
+                      ip: '169.254.1.11', auto_config: false
+    sw.vm.network 'private_network',
+                      virtualbox__intnet: 's01s02_2',
                       ip: '169.254.1.11', auto_config: false
     sw.vm.network 'private_network',
                       virtualbox__intnet: 's01l01',
@@ -71,7 +74,10 @@ Vagrant.configure("2") do |config|
   config.vm.define "spine02" do |sw|
     sw.vm.box = default_box
     sw.vm.network 'private_network',
-                      virtualbox__intnet: 's01s02',
+                      virtualbox__intnet: 's01s02_1',
+                      ip: '169.254.1.11', auto_config: false
+    sw.vm.network 'private_network',
+                      virtualbox__intnet: 's01s02_2',
                       ip: '169.254.1.11', auto_config: false
     sw.vm.network 'private_network',
                       virtualbox__intnet: 's02l01',
@@ -101,7 +107,10 @@ Vagrant.configure("2") do |config|
   config.vm.define "leaf01" do |sw|
     sw.vm.box = default_box
     sw.vm.network 'private_network',
-                      virtualbox__intnet: 'l01l02',
+                      virtualbox__intnet: 'l01l02_1',
+                      ip: '169.254.1.11', auto_config: false
+    sw.vm.network 'private_network',
+                      virtualbox__intnet: 'l01l02_2',
                       ip: '169.254.1.11', auto_config: false
     sw.vm.network 'private_network',
                       virtualbox__intnet: 's01l01',
@@ -131,7 +140,10 @@ Vagrant.configure("2") do |config|
   config.vm.define "leaf02" do |sw|
     sw.vm.box = default_box
     sw.vm.network 'private_network',
-                      virtualbox__intnet: 'l01l02',
+                      virtualbox__intnet: 'l01l02_1',
+                      ip: '169.254.1.11', auto_config: false
+    sw.vm.network 'private_network',
+                      virtualbox__intnet: 'l01l02_2',
                       ip: '169.254.1.11', auto_config: false
     sw.vm.network 'private_network',
                       virtualbox__intnet: 's01l02',
